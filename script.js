@@ -11,7 +11,7 @@ const rules = {
 // create a function called "getComputerChoice"
 // will get "randomly" rock paper or scissors
 function getComputerChoice() {
-  return arsenal[Math.round(Math.random() * 3)];
+  return arsenal[Math.floor(Math.random() * 3)];
 }
 
 // create a function called "getHumanChoice" by using Prompt
