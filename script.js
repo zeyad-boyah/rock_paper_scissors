@@ -20,12 +20,12 @@ function getHumanChoice() {
   let counter = 0;
   do {
     if (counter == 0) {
-      choice = prompt("choose rock, paper or scissors!");
+      choice = prompt("choose rock, paper or scissors!").toLowerCase();
     } else {
-      choice = prompt("choose rock, paper or scissors!");
+      choice = prompt("Invalid input! please choose rock, paper or scissors!").toLowerCase();
     }
     counter++;
-  } while (!arsenal.includes(choice.toLowerCase()));
+  } while (!arsenal.includes(choice));
   return choice;
 }
 
