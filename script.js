@@ -65,3 +65,6 @@ function playGame() {
     console.log(`better luck next time.`);
   }
 }
+
+alert("please f12 or open the console")
+playGame()
