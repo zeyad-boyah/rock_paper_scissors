@@ -1,4 +1,3 @@
 # Rock, paper, scissors
 
-## This a game that is meant to be played entirely from the console
-## it is a part of the Odin project curriculum  
+and now you can play it from the UI
