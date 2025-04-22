@@ -1,0 +1,22 @@
+body{
+    display: flex;
+    gap: 50px;
+    background-color:indianred;
+
+}
+
+.choices-container {
+    display: flex;
+    flex: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.choice{
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+img{
+    height: 300px;
+}
