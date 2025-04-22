@@ -1,22 +1,35 @@
 body{
     display: flex;
-    gap: 50px;
+    margin: 50px;
     background-color:indianred;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
 
 }
 
 .choices-container {
     display: flex;
-    flex: auto;
-    justify-content: center;
-    align-items: center;
-}
-
-.choice{
     justify-content: center;
     align-items: center;
     gap: 20px;
 }
+
+
+button{
+    border-radius: 25px;
+}
+
 img{
+    flex:content;
+    width: 400px;
     height: 300px;
+    border-radius: 25px;
+}
+
+.results{
+    background-color: aliceblue;
+    padding: 50px;
+    border-radius: 25px;
 }
