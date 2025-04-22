@@ -1,70 +1,67 @@
-// make an array with the "weapons ;)"
-let arsenal = ["rock", "paper", "scissors"];
+document.addEventListener("DOMContentLoaded", () => {
+  const arsenal = ["rock", "paper", "scissors"];
+  const rules = { rock: "paper", paper: "scissors", scissors: "rock" };
+  const rockBtn = document.querySelector("#rock");
+  const paperBtn = document.querySelector("#paper");
+  const scissorsBtn = document.querySelector("#scissors");
+  const startBtn = document.querySelector("#start");
+  const roundText = document.querySelector("#roundResult");
+  const scoreText = document.querySelector("#currentScore");
+  const winnerText = document.querySelector("#winner");
 
-// make rules dict
-const rules = {
-  rock: "paper",
-  paper: "scissors",
-  scissors: "rock",
-};
-
-// create a function called "getComputerChoice"
-// will get "randomly" rock paper or scissors
-function getComputerChoice() {
-  return arsenal[Math.floor(Math.random() * 3)];
-}
-
-// create a function called "getHumanChoice" by using Prompt
-function getHumanChoice() {
-  let choice;
-  let counter = 0;
-  do {
-    if (counter == 0) {
-      choice = prompt("choose rock, paper or scissors!").toLowerCase();
-    } else {
-      choice = prompt("Invalid input! please choose rock, paper or scissors!").toLowerCase();
-    }
-    counter++;
-  } while (!arsenal.includes(choice));
-  return choice;
-}
-
-// create a function called "playGame" that called the need functions to play 5 rounds
-function playGame() {
-  // keep track of the scores in "humanScore" and "computerScore" In the "global scope"
   let humanScore = 0;
   let computerScore = 0;
-  let humanSelection;
-  let computerSelection;
-  // create a function called "playRound" that takes the "humanChoice" and "computerChoice" as arguments and increment the score
-  // humanChoice must be case-insensitive
-  // it should return the winner using console.log in one of the 2 formats "You lose! "placeholder" beats placeholder" or "You win! ..."
-  function playRound(humanChoice, computerChoice) {
-    humanChoice = humanChoice.toLowerCase();
-    if (humanChoice == rules[computerChoice]) {
-      console.log(`You won! ${humanChoice} beats ${computerChoice}`);
-      humanScore++;
-    } else if (computerChoice == rules[humanChoice]) {
-      console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
-      computerScore++;
-    } else {
-      console.log("its a tie");
+
+  function getComputerChoice() {
+    return arsenal[Math.floor(Math.random() * arsenal.length)];
+  }
+
+  // make a function for updating score each round
+  function updateScoreDisplay() {
+    scoreText.textContent = `Player = ${humanScore}, Computer = ${computerScore}`;
+  }
+
+  // check for winner
+  // update the winner ext
+  //  and stop the game afterwards by disabling all 3 main buttons R P S
+  function checkForWinner() {
+    if (humanScore >= 5 || computerScore >= 5) {
+      winnerText.textContent =
+        humanScore > computerScore
+          ? `We have a winner!!! Your score is ${humanScore}`
+          : `Better luck next time.`;
+      // disable further play
+      [rockBtn, paperBtn, scissorsBtn].forEach((btn) => (btn.disabled = true));
     }
   }
-
-  for (i = 0; i < 5; i++) {
-    humanSelection = getHumanChoice();
-    computerSelection = getComputerChoice();
-    playRound(humanSelection, computerSelection);
+  // round logic with round text
+  function playRound(humanChoice) {
+    const computerChoice = getComputerChoice();
+    if (humanChoice === rules[computerChoice]) {
+      roundText.textContent = `You won! ${humanChoice} beats ${computerChoice}`;
+      humanScore++;
+    } else if (computerChoice === rules[humanChoice]) {
+      roundText.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
+      computerScore++;
+    } else {
+      roundText.textContent = `It's a tie! You both chose ${humanChoice}`;
+    }
+    updateScoreDisplay();
+    checkForWinner();
   }
-  if (humanScore > computerScore) {
-    console.log(`We have a winner!!! your score is ${humanScore}`);
-  } else if (humanScore == computerScore) {
-    console.log(`you are on par with the computer!!!`);
-  } else {
-    console.log(`better luck next time.`);
-  }
-}
 
-alert("please f12 or open the console")
-playGame()
+  // add all 3 buttons for R P S
+  rockBtn.addEventListener("click", () => playRound("rock"));
+  paperBtn.addEventListener("click", () => playRound("paper"));
+  scissorsBtn.addEventListener("click", () => playRound("scissors"));
+
+  // reset everything when Start is clicked
+  startBtn.addEventListener("click", () => {
+    humanScore = 0;
+    computerScore = 0;
+    roundText.textContent = "";
+    winnerText.textContent = "";
+    updateScoreDisplay();
+    [rockBtn, paperBtn, scissorsBtn].forEach((btn) => (btn.disabled = false));
+  });
+});
